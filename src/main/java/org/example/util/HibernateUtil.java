@@ -10,7 +10,7 @@ public class HibernateUtil {
 
     static {
         sessionFactory = new Configuration()
-                .configure("hibernate.cfg.xml")
+                .configure("./META-INF/hibernate.cfg.xml")
                 .addAnnotatedClass(Customer.class)
                 .buildSessionFactory();
     }
@@ -25,19 +25,19 @@ public class HibernateUtil {
 //
 //    }
 
-    public static void shutdown() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
-            System.out.println("SessionFactory closed");
-        }
-    }
-
-    static {
-        // Register shutdown hook for pure Java apps
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("JVM exiting, closing SessionFactory...");
-            shutdown();
-        }));
-    }
+//    public static void shutdown() {
+//        if (sessionFactory != null) {
+//            sessionFactory.close();
+//            System.out.println("SessionFactory closed");
+//        }
+//    }
+//
+//    static {
+//        // Register shutdown hook for pure Java apps
+//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+//            System.out.println("JVM exiting, closing SessionFactory...");
+//            shutdown();
+//        }));
+//    }
 
 }

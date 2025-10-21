@@ -16,14 +16,15 @@ public class Main {
         Customer customer = Customer.builder()
                 .firstname("John")
                 .lastname("Smith")
-                .username("johnsmith")
+                .username("johnsmith2")
                 .password("password")
-                .phoneNumber("555-555-5555")
+                .phoneNumber("555-555-5566")
                 .registerDateTime(LocalDateTime.now())
                 .build();
 
 
-        customerDao.save(customer);
+       Customer c =  customerDao.save(customer);
+        System.out.println(c.getId());
     }
 
 }
