@@ -1,6 +1,5 @@
 package org.example.core.services.impl;
 
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import org.example.core.dto.CustomerResDto;
 import org.example.core.dto.CustomerSaveReqDto;
@@ -17,7 +16,6 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerDao customerDao;
     CustomerMapper customerMapper;
 
-    @Inject
     public CustomerServiceImpl(CustomerDao customerDao,
                                CustomerMapper customerMapper) {
         this.customerDao = customerDao;

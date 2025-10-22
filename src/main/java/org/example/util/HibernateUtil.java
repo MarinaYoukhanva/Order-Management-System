@@ -12,10 +12,8 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionFactory() {
         try {
-            // Create JPA EntityManagerFactory from persistence.xml
-             EntityManagerFactory emf = Persistence.createEntityManagerFactory("orders") ;
+             EntityManagerFactory emf = Persistence.createEntityManagerFactory("taminPU");
 
-                // Unwrap the Hibernate SessionFactory
                 return emf.unwrap(SessionFactory.class);
 
         } catch (Exception e) {
