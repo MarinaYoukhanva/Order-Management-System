@@ -1,18 +1,37 @@
 package org.example.util;
 
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.example.persistence.entity.Customer;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    public static SessionFactory sessionFactory;
+    private static final SessionFactory sessionFactory = buildSessionFactory();
 
-    static {
-        sessionFactory = new Configuration()
-                .configure("./META-INF/hibernate.cfg.xml")
-                .addAnnotatedClass(Customer.class)
-                .buildSessionFactory();
+    private static SessionFactory buildSessionFactory() {
+        try {
+            // Create JPA EntityManagerFactory from persistence.xml
+             EntityManagerFactory emf = Persistence.createEntityManagerFactory("orders") ;
+
+                // Unwrap the Hibernate SessionFactory
+                return emf.unwrap(SessionFactory.class);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create SessionFactory from persistence.xml", e);
+        }
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public static void shutdown() {
+        if (sessionFactory != null) {
+            sessionFactory.close();
+            System.out.println("SessionFactory closed.");
+        }
     }
 
 //    @Getter
