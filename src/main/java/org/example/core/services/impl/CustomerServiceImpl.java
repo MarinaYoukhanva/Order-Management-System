@@ -11,6 +11,8 @@ import org.example.persistence.entity.Customer;
 import org.example.util.HibernateUtil;
 import org.hibernate.Session;
 
+import java.util.List;
+
 public class CustomerServiceImpl implements CustomerService {
 
     CustomerDao customerDao;
@@ -52,6 +54,49 @@ public class CustomerServiceImpl implements CustomerService {
                 );
                 session.getTransaction().commit();
                 return res;
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+                throw e;
+            }
+        }
+    }
+
+    @Override
+    public CustomerResDto findById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return customerDao.findById(id, session)
+                    .map(customer -> customerMapper.toDto(customer))
+                    .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+        }
+    }
+
+    @Override
+    public CustomerResDto findByUsername(String username) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return customerDao.findByUsername(username, session)
+                    .map(customer -> customerMapper.toDto(customer))
+                    .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+        }
+    }
+
+    @Override
+    public List<CustomerResDto> findAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return customerDao.findAll(session)
+                    .stream().map(customer -> customerMapper.toDto(customer))
+                    .toList();
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            try {
+                int affectedRows = customerDao.delete(id, session);
+                if (affectedRows == 0)
+                    throw new EntityNotFoundException("Customer not found");
+                session.getTransaction().commit();
             }catch (Exception e) {
                 session.getTransaction().rollback();
                 throw e;
