@@ -12,9 +12,9 @@ public interface CustomerDao {
 
     Optional<Customer> findById(Long id, Session session);
 
-    Optional<Customer> findByUsername(String username);
+    Optional<Customer> findByUsername(String username, Session session);
 
-    List<Customer> findAll();
+    List<Customer> findAll(Session session);
 
-    int delete(Long id);
+    int delete(Long id, Session session);
 }
