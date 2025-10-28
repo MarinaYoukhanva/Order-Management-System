@@ -30,7 +30,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> findAllByCustomerId(Long customerId, Session session) {
         return session.createQuery("from Order o where o.customer.id = :customerId", Order.class)
-                .setParameter("customerId", 1L)
+                .setParameter("customerId", customerId)
                 .list();
     }
 

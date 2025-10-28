@@ -15,8 +15,8 @@ import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
 
-    CustomerDao customerDao;
-    CustomerMapper customerMapper;
+    private final CustomerDao customerDao;
+    private final CustomerMapper customerMapper;
 
     public CustomerServiceImpl(CustomerDao customerDao,
                                CustomerMapper customerMapper) {

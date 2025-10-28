@@ -13,5 +13,7 @@ public interface OrderItemDao {
 
     List<OrderItem> findAll(Session session);
 
+    List<OrderItem> findByOrderId(Long orderId, Session session);
+
     int delete(Long id, Session session);
 }

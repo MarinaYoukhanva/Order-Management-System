@@ -27,6 +27,14 @@ public class OrderItemDaoImpl implements OrderItemDao {
     }
 
     @Override
+    public List<OrderItem> findByOrderId(Long orderId, Session session) {
+        return session.createQuery(
+                        "from OrderItem o where o.order.id = :orderId", OrderItem.class)
+                .setParameter("orderId", orderId)
+                .list();
+    }
+
+    @Override
     public int delete(Long id, Session session) {
         return session.createMutationQuery("delete from OrderItem oi where oi.id = :id")
                 .setParameter("id", id)

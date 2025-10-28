@@ -1,4 +1,4 @@
-package org.example.persistence.entity;
+package org.example.persistence.entity.enums;
 
 public enum OrderStatus {
     NEW,
